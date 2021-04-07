@@ -24,15 +24,11 @@ export default {
         }
     },
     methods: {
-        resetField() {
-            this.value = ''
-        },
         getValue() {
             return this.value
         },
         onChangeHandler() {
             this.$emit('onValue', this.getValue())
-            this.resetField()
         }
     }
 }

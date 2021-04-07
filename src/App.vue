@@ -14,7 +14,6 @@
           v-else
         />
 
-
       </div>
 
     </div>

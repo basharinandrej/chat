@@ -3,8 +3,14 @@
     <main class="chat-main">
         <h2 class="chat-main__title">Башарин Андрей</h2>
         <hr>
+
+        <ListMessage
+            :messages="messages"
+        />
+
         <Form 
             placeholder="Введите сообщение"
+            @onFormData="this.getFormDataHandler"
         />
     </main>
 
@@ -13,10 +19,21 @@
 <script> 
 
 import Form from '@/components/containers/Form/Form.vue'
+import ListMessage from '@/components/containers/Chat/ChatMain/ListMessage/ListMessage.vue'
 
 export default {
     name: 'ChatMain',
-    components: {Form}
+    components: {Form, ListMessage},
+    data() {
+        return {
+            messages: []
+        }
+    },
+    methods: {
+        getFormDataHandler( obj ) {
+            this.messages.unshift(obj.value)
+        }
+    }
 }
 
 </script>
@@ -38,4 +55,8 @@ export default {
         margin-top: auto
         margin-left: -12px
         margin-right: -12px
+    .list-messages
+        height: 100%
+        max-height: 290px
+        overflow-y: scroll
 </style>
