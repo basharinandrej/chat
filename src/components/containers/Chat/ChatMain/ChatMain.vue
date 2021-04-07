@@ -3,7 +3,9 @@
     <main class="chat-main">
         <h2 class="chat-main__title">Башарин Андрей</h2>
         <hr>
-        <Form />
+        <Form 
+            placeholder="Введите сообщение"
+        />
     </main>
 
 </template>

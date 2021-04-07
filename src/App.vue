@@ -5,7 +5,15 @@
       <div class="container">
         <h1 class="app-wrapper__title">Realtime Chat</h1>
 
-        <Chat />
+        <Auth 
+          v-if="!isLogin"
+          @onFormData="this.getFormDataHandler"
+
+        />
+        <Chat 
+          v-else
+        />
+
 
       </div>
 
@@ -16,10 +24,21 @@
 <script>
 
 import Chat from '@/components/containers/Chat/Chat.vue'
+import Auth from '@/components/containers/Auth/Auth.vue'
 
 export default {
   name: 'App',
-  components: { Chat }
+  components: { Chat, Auth },
+  data() {
+    return {
+      isLogin: false
+    }
+  },
+  methods: {
+    getFormDataHandler( el ) {
+      el.value ? this.isLogin = true : this.isLogin.false
+    }
+  }
 }
 </script>
 
@@ -32,8 +51,9 @@ export default {
   
 .app-wrapper 
   display: flex
-  height: 100vh
   background: purple
+  padding-bottom: 96px
+  min-height: 100vh
   &__title
     margin-top: 36px
     margin-bottom: 36px

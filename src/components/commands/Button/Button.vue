@@ -1,6 +1,8 @@
 <template>
 
-    <button class="btn" :type="typeAttr">
+    <button class="btn" 
+            :type="typeAttr"
+    >
         <slot />
     </button>
 

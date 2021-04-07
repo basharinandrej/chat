@@ -1,9 +1,13 @@
 <template>
 
     <textarea
-        :placeholder="this.placeholder"
+        :placeholder="placeholder"
         class="textarea"
+        v-model="value"
+        @change="onChangeHandler"
     ></textarea>
+ 
+
 
 </template>
 
@@ -13,6 +17,23 @@ export default {
     name: 'TextArea',
     props: {
         placeholder: String
+    },
+    data() {
+        return {
+            value: ''
+        }
+    },
+    methods: {
+        resetField() {
+            this.value = ''
+        },
+        getValue() {
+            return this.value
+        },
+        onChangeHandler() {
+            this.$emit('onValue', this.getValue())
+            this.resetField()
+        }
     }
 }
 </script>

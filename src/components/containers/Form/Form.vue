@@ -1,9 +1,10 @@
 <template>
 
-    <form class="main-form" @submit.prevent>
+    <form class="main-form" @submit.prevent="onSubmitHandler">
 
         <TextArea
-            placeholder="Введите Сообщение"
+            :placeholder="placeholder"
+            @onValue="this.setValueTextAreaHandler"
         />
         <Button 
             typeAttr="submit"
@@ -22,7 +23,27 @@ import TextArea from '@/components/commands/TextArea/TextArea.vue'
 
 export default {
     name: 'Form',
-    components: {Button, TextArea}
+    props: {
+        placeholder: String
+    },
+    data() {
+        return {
+            textAreaValue: ''
+        }
+    },
+    components: { Button, TextArea },
+    methods: {
+        setValueTextAreaHandler(val) {
+            this.textAreaValue = val
+        },
+        onSubmitHandler() {
+            const formData = { 
+                value: this.textAreaValue
+            }
+            this.$emit('onFormData', formData)
+            this.textAreaValue = ''
+        },
+    }
 }
 </script>
 
