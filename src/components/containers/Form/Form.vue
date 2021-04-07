@@ -5,6 +5,7 @@
         <TextArea
             :placeholder="placeholder"
             @onValue="this.setValueTextAreaHandler"
+            @onResetValue="this.onResetValueHandler"
         />
         <Button 
             typeAttr="submit"
@@ -36,12 +37,15 @@ export default {
         setValueTextAreaHandler(val) {
             this.textAreaValue = val
         },
+        onResetValueHandler(onResetValue) {
+            onResetValue && onResetValue()
+        },
         onSubmitHandler() {
             const formData = { 
                 value: this.textAreaValue
             }
             this.$emit('onFormData', formData)
-            this.textAreaValue = ''
+            this.onResetValueHandler()
         },
     }
 }

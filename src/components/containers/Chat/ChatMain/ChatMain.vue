@@ -30,8 +30,8 @@ export default {
         }
     },
     methods: {
-        getFormDataHandler( obj ) {
-            this.messages.unshift(obj.value)
+        getFormDataHandler( objMessage ) {
+            this.messages.unshift(objMessage.value)
         }
     }
 }

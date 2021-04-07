@@ -30,7 +30,7 @@ export default {
   components: { Chat, Auth },
   data() {
     return {
-      isLogin: false
+      isLogin: true
     }
   },
   methods: {
