@@ -1,7 +1,9 @@
 <template>
 
-    <li class="list-messages__item">{{ message }}</li>
-
+    <li class="list-messages__item" :class="{'list-messages__item--my': addClassMyMessage}">
+        {{message.messageInfo.textMessage}}
+    </li>
+    
 </template>
 
 <script>
@@ -9,8 +11,15 @@
 export default {
     name: 'ListMessageItem',
     props: {
-        message: String
-    }
+        message: Object,
+        currentUserId: Number,
+        currentDialog: Object
+    },             
+    computed: {
+        addClassMyMessage() {
+            return this.message.senderId === this.currentUserId
+        }
+    }       
 }
 
 </script>
@@ -29,6 +38,8 @@ export default {
         font-size: 16px
         font-family: sans-serif
         margin-bottom: 20px
-
+        &--my
+            margin-right: auto
+            background: #1ad41a
 
 </style>

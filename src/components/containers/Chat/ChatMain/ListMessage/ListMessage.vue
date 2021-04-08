@@ -5,6 +5,8 @@
             v-for="(item, i) in messages"
             :key="i"
             :message="item"
+            :currentUserId="currentUserId"
+            :currentDialog="currentDialog"
         />
     </ul>
 
@@ -18,12 +20,9 @@ export default {
     name: 'ListMessage',
     components: {ListMessageItem},
     props: {
-        messages: Array
-    },
-    data() {
-        return {
-            text: 'text'
-        }
+        messages: Array,
+        currentUserId: Number,
+        currentDialog: Object
     }
 }
 
@@ -36,6 +35,7 @@ export default {
     padding: 4px 8px 
     display: flex
     flex-direction: column-reverse
+    align-items: flex-end
 
 
 </style>

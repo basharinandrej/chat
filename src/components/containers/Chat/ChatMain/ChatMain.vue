@@ -2,11 +2,15 @@
 
     <main class="chat-main">
         <div v-if="currentDialog" class="chat-main__wrapper">
-            <h2 class="chat-main__title">{{currentDialog.name || ''}}</h2>
+            <h2 class="chat-main__title">
+                {{currentDialog.name}}
+            </h2>
             <hr>
 
             <ListMessage
                 :messages="messages"
+                :currentUserId="currentUserId"
+                :currentDialog="currentDialog"
             />
 
             <Form 
@@ -18,7 +22,7 @@
             class="chat-main__paragraph">Выберете диалог</p>
         <p v-else
             class="chat-main__paragraph"
-            >Добавьте пользователя</p>
+            >Добавьте пользователя. Для этого продублируйте вкладку в браузере</p>
     </main>
 
 </template>
@@ -33,16 +37,40 @@ export default {
     components: {Form, ListMessage},
     props: {
         currentDialog: Object,
-        totalUsers: Number
+        totalUsers: Number,
+        currentUserId: Number
     },
     data() {
         return {
             messages: []
         }
     },
+    updated() {
+        window.onstorage = e => (
+            this.messages = JSON.parse( e.storageArea.messages )
+        )
+    },
     methods: {
         getFormDataHandler( objMessage ) {
-            this.messages.unshift(objMessage.value)
+            this.saveLocalStorageCurrentDialog( objMessage.value )
+        },
+        getMessagesLocalStorage() { 
+            this.messages = JSON.parse( window.localStorage.getItem('messages') ) || []
+        },
+        saveLocalStorageCurrentDialog( message ) {
+            this.getMessagesLocalStorage()
+            // TODO Подумать как сделать формирование объекта
+            const newMessage = {
+                'senderId':  this.currentUserId,
+                'messageInfo': {
+                    'toAddresseeId': this.currentDialog.id,
+                    'textMessage': message
+                }
+            }
+            const messages = this.messages
+            messages.unshift(newMessage)
+            
+            window.localStorage.setItem('messages', JSON.stringify( messages ))
         }
     }
 }

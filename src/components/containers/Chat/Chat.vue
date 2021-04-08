@@ -8,6 +8,7 @@
         <ChatMain 
             :currentDialog="this.currentDialog"
             :totalUsers="this.getTotalUsers"
+            :currentUserId="currentUserId"
         />
     </div>
 
@@ -32,7 +33,7 @@ export default {
     },
     created() {
         window.onstorage = e => (
-            this.users = JSON.parse( e.newValue ).filter(el => el.id !== this.currentUserId)
+            this.users = JSON.parse( e.storageArea.users ).filter(el => el.id !== this.currentUserId)
         )
         this.users = JSON.parse(localStorage.getItem('users')).filter(el => el.id !== this.currentUserId)
     },

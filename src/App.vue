@@ -12,7 +12,7 @@
         />
         <Chat 
           v-else
-          :currentUserId="currentUserId"
+          :currentUserId="curentUserId"
         />
 
       </div>
@@ -40,7 +40,7 @@ export default {
       el.value ? this.isLogin = true : this.isLogin.false
     },
     getCurrentUserHandler( el ) {
-      this.currentUserId = el && el.id
+      this.curentUserId = el && el.id
     }
   }
 }
