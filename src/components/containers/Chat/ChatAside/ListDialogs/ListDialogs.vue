@@ -2,9 +2,10 @@
 
     <ul class="chat-aside__list-dialogs list-dialogs">
         <ListDialogsItem 
+            @onCurrentDialog="getCurrentDialogHandler"
             v-for="(item, i) in users"
             :key="i"
-            :name="item"
+            :item="item"
         />
     </ul>
 
@@ -19,6 +20,11 @@ export default {
     props: {
         users: Array
     },
-    components: {ListDialogsItem}
+    components: {ListDialogsItem},
+    methods: {
+        getCurrentDialogHandler(user) {
+            this.$emit('onCurrentDialog', user)
+        }
+    }
 }
 </script>

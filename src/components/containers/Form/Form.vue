@@ -2,11 +2,12 @@
 
     <form class="main-form" @submit.prevent="onSubmitHandler">
 
-        <TextArea
+        <textarea
             :placeholder="placeholder"
-            @onValue="this.setValueTextAreaHandler"
-            @onResetValue="this.onResetValueHandler"
-        />
+            class="textarea"
+            v-model="value"
+        ></textarea>
+        
         <Button 
             typeAttr="submit"
         >
@@ -20,7 +21,6 @@
 <script>
 
 import Button from '@/components/commands/Button/Button.vue'
-import TextArea from '@/components/commands/TextArea/TextArea.vue'
 
 export default {
     name: 'Form',
@@ -29,23 +29,17 @@ export default {
     },
     data() {
         return {
-            textAreaValue: ''
+            value: ''
         }
     },
-    components: { Button, TextArea },
+    components: { Button },
     methods: {
-        setValueTextAreaHandler(val) {
-            this.textAreaValue = val
-        },
-        onResetValueHandler(onResetValue) {
-            onResetValue && onResetValue()
-        },
         onSubmitHandler() {
             const formData = { 
-                value: this.textAreaValue
+                value: this.value
             }
             this.$emit('onFormData', formData)
-            this.onResetValueHandler()
+            this.value = ''
         },
     }
 }
@@ -55,5 +49,13 @@ export default {
 
 .main-form
     display: flex
+
+.textarea 
+    flex-grow: 1
+    padding: 8px 12px
+    color: #000
+    font-size: 16px
+    font-family: sans-serif
+    resize: none
 
 </style>

@@ -1,8 +1,14 @@
 <template>
 
     <div class="chat">
-        <ChatAside />
-        <ChatMain />
+        <ChatAside
+            @onCurrentDialog="getCurrentDialogHandler"
+            :users="users"
+        />
+        <ChatMain 
+            :currentDialog="this.currentDialog"
+            :totalUsers="this.getTotalUsers"
+        />
     </div>
 
 </template>
@@ -14,7 +20,32 @@ import ChatMain from '@/components/containers/Chat/ChatMain/ChatMain.vue'
 
 export default {
     name: 'Chat',
-    components: { ChatAside, ChatMain }
+    components: { ChatAside, ChatMain },
+    props: {
+        currentUserId: Number
+    },
+    data() {
+        return {
+            users: [],
+            currentDialog: null
+        }
+    },
+    created() {
+        window.onstorage = e => (
+            this.users = JSON.parse( e.newValue ).filter(el => el.id !== this.currentUserId)
+        )
+        this.users = JSON.parse(localStorage.getItem('users')).filter(el => el.id !== this.currentUserId)
+    },
+    methods: {
+        getCurrentDialogHandler(user) {
+            this.currentDialog = user
+        }
+    },
+    computed: {
+        getTotalUsers() {
+            return this.users.length
+        }
+    }
 }
 </script>
 

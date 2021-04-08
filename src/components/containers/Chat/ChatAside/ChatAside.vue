@@ -4,7 +4,8 @@
         <h2 class="chat-aside__title">Диалоги</h2>
 
         <ListDialogs 
-            :users="this.users"
+            @onCurrentDialog="getCurrentDialogHandler"
+            :users="users"
         />
     </aside>
 
@@ -16,12 +17,15 @@ import ListDialogs from '@/components/containers/Chat/ChatAside/ListDialogs/List
 
 export default {
     name: 'ChatAside',
-    data() {
-        return {
-            users: ['Тимур Меллиоранский', 'Иван Демидов', 'Максим Сытов']
-        }
+    components: { ListDialogs },
+    props: {
+        users: Array
     },
-    components: { ListDialogs }
+    methods: {
+        getCurrentDialogHandler(user) {
+            this.$emit('onCurrentDialog', user)
+        }
+    }
 }
 </script>
 
@@ -37,5 +41,8 @@ export default {
         font-family: 'Arial', sans-serif
         font-weight: 100
         margin-bottom: 36px
+    &__list-dialogs
+        max-height: 290px
+        overflow-y: auto
 
 </style>

@@ -8,10 +8,11 @@
         <Auth 
           v-if="!isLogin"
           @onFormData="this.getFormDataHandler"
-
+          @onCurrentUser="this.getCurrentUserHandler"
         />
         <Chat 
           v-else
+          :currentUserId="currentUserId"
         />
 
       </div>
@@ -30,12 +31,16 @@ export default {
   components: { Chat, Auth },
   data() {
     return {
-      isLogin: true
+      isLogin: false,
+      currentUserId: null
     }
   },
   methods: {
     getFormDataHandler( el ) {
       el.value ? this.isLogin = true : this.isLogin.false
+    },
+    getCurrentUserHandler( el ) {
+      this.currentUserId = el && el.id
     }
   }
 }

@@ -1,6 +1,9 @@
 <template>
 
-    <li class="list-dialogs__item">{{ name }}</li>
+    <li class="list-dialogs__item" 
+        @click="this.emitHandler">
+        {{ item.name }}
+    </li>
 
 </template>
 
@@ -9,7 +12,12 @@
 export default {
     name: 'ListDialogsItem',
     props: {
-        name: String
+        item: Object
+    },
+    methods: {
+        emitHandler() {
+            this.$emit('onCurrentDialog', this.item)
+        }
     }
 }
 </script>
